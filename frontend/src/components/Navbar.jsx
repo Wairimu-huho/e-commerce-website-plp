@@ -7,6 +7,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 import avatarImg from "../assets/avatar.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const navigation = [
   {name: "Dashboard", href:"/dashboard"},
@@ -18,8 +19,8 @@ const navigation = [
 const Navbar = () => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  console.log(isDropdownOpen)
-
+  const cartItems = useSelector(state => state.cart.cartItems);
+  
   const currentUser = false;
   return (
     <header className="max-w-2xl mx-auto px-4 py-6">
@@ -80,8 +81,13 @@ const Navbar = () => {
             <HiOutlineHeart className="size-6" />
           </button>
           <Link to="/cart" className="bg-primary p-1 sm:px-6 px-2 flex items-center">
-            <FaShoppingCart />
-            <span className="text-sm font-semibold sm:m-1">0</span>
+            <FaShoppingCart className="" />
+            {
+              cartItems.length > 0 ? <span className="text-sm font-semibold 
+              sm:m-1">{cartItems.length}</span> : <span className="text-sm font-semibold 
+              sm:m-1">0</span>
+            }
+    
           </Link>
         </div>
       </nav>
